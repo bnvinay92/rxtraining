@@ -1,9 +1,15 @@
 package com.github.bnvinay92;
 
 import java.util.concurrent.ExecutorService;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 abstract class EventSource<Event> {
+
+    static <T> EventSource<T> create(Consumer<Listener<T>> onListen) {
+        // TODO
+        return null;
+    }
 
     abstract void run(Listener<Event> listener);
 
@@ -16,12 +22,10 @@ abstract class EventSource<Event> {
     }
 
     public <R> EventSource<R> map(Function<Event, R> mapper) {
-        // TODO
         return null;
     }
 
     public <R> EventSource<R> flatMap(Function<Event, EventSource<R>> flatMapper) {
-        // TODO
         return null;
     }
 

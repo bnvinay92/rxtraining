@@ -10,7 +10,14 @@ public class Main {
     public static void main(String[] args) {
         ExecutorService bgThread = Executors.newSingleThreadExecutor();
         ExecutorService mainThread = Executors.newSingleThreadExecutor();
-        new ApiCall()
+        EventSource.create(emitter -> {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e1) {
+                emitter.onFailure(e1);
+            }
+            emitter.onSuccess(new PersonEntity("Vinay", 42));
+        })
                 .subscribeOn(bgThread)
                 .observeOn(mainThread)
                 .run(personEntity -> renderView());
