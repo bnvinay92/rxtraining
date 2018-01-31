@@ -14,6 +14,6 @@ public class SubscribeOn<T> extends EventSource<T> {
 
     @Override
     public void run(Listener<T> listener) {
-        //TODO
+        executor.execute(() -> original.run(listener));
     }
 }

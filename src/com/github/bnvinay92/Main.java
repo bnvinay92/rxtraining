@@ -10,9 +10,10 @@ public class Main {
     public static void main(String[] args) {
         ExecutorService bgThread = Executors.newSingleThreadExecutor();
         ExecutorService mainThread = Executors.newSingleThreadExecutor();
-        EventSource<PersonEntity> apiCall = new ObserveOn<>(new SubscribeOn<>(new ApiCall(), bgThread), mainThread);
-
-        apiCall.run(personEntity -> renderView());
+        new ApiCall()
+                .subscribeOn(bgThread)
+                .observeOn(mainThread)
+                .run(personEntity -> renderView());
     }
 
     private static void renderView() {

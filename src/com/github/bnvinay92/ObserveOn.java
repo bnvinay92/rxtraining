@@ -14,6 +14,6 @@ public class ObserveOn<T> extends EventSource<T> {
 
     @Override
     public void run(Listener<T> listener) {
-        //TODO
+        original.run(t -> executor.execute(() -> listener.onSuccess(t)));
     }
 }
